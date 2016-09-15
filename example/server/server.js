@@ -1,5 +1,6 @@
 
 'use strict';
+const sources = require('../../grunt/sources.js');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
@@ -10,7 +11,7 @@ const app = express();
 const logger = Logger.logger();
 const COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || sources.server.port || 3000);
 
 app.use((req, res, next) => {
   logger.log('request!!');

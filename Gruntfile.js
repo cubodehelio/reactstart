@@ -1,8 +1,7 @@
-'use strict';
 const copyTasks = require('./grunt/copyTask');
 const cleanTasks = require('./grunt/cleanTask');
 
-module.exports = function (grunt) {
+module.exports = (grunt) => {
 
   grunt.registerTask('default', ['run:webpack', 'copy']);
   grunt.registerTask('develop', ['clean:public', 'concurrent:develop']);
@@ -15,10 +14,16 @@ module.exports = function (grunt) {
     /**
      * configure `grunt-run` task
      */
+
     run: {
       'options': {
         wait: true
       },
+
+      /**
+       * Webpack task. Just run `webpack` as is in the root. It will load the
+       * webpack.config.js file as a normal standalone webpack process.
+       */
       'webpack': {
         cmd: 'webpack'
       },
@@ -30,7 +35,7 @@ module.exports = function (grunt) {
 
     concurrent: {
       develop: {
-        tasks: ['copy:vendor.scripts', 'copy:app.index', 'run:webpack-watch'],
+        tasks: ['copy:vendor.scripts', 'copy:app.index.html', 'run:webpack-watch'],
         options: {
           logConcurrentOutput: true
         }

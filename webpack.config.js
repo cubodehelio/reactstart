@@ -1,10 +1,15 @@
+const sources = require('./grunt/sources.js');
+
+/**
+ * Webpack's configuration file.
+ */
 module.exports = {
-  entry: './example/app/index.jsx',
+  entry: `./${sources.app['index.jsx']}`,
   output: {
-    filename: './server/public/bundle.js'
+    filename: './example/server/public/bundle.js'
   },
 
-  // Enable sourcemaps for debugging webpack's output.
+  // Enable source-maps for debugging webpack's output.
   devtool: 'source-map',
 
   resolve: {
@@ -36,15 +41,16 @@ module.exports = {
     ]
   },
 
-  // When importing a module whose path matches one of the following, just
-  // assume that the corresponding global variable exists and use that instead.
-  // This is important because it allows us to avoid any third party
-  // dependencies to be bundled along side our source code. Also allows
-  // browsers to cache those third party libraries.
+  // In the example/ app all the needed third party libraries are loaded from
+  // public public CDNs and are inclueded in the index.html as you normaly
+  // would via <scrip> tag. This means that those libs creates his own global
+  // variables (namespace) in the document. So here we instruct webpack to just
+  // ignore the presence of this specific globals in our code.
+  // Among other things this allows us to avoid any third party dependencies to
+  // be bundled along side our source code.
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
-    'superagent': 'superagent',
-    'debug': 'debug'
+    'superagent': 'superagent'
   }
 };

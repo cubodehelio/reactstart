@@ -1,7 +1,8 @@
 module.exports = {
 
   app: {
-    index: 'example/index.html'
+    'index.html': 'example/app/index.html',
+    'index.jsx': 'example/app/index.jsx'
   },
 
   vendor: {
@@ -27,5 +28,8 @@ module.exports = {
     fonts:
     [
     ]
+  },
+  server: {
+    port: 3003
   }
 };
