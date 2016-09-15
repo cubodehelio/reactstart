@@ -30,7 +30,8 @@ The environment is powered by Grunt, Webpack and Babel in conjunction to provide
 other third party library.
 * Be able to debug in the browser via accurate source-maps viewing your real source code (ES2015 and even JSX syntax) instead of the transpiled version.
 * Any change you made in the source code is immediately transpiled and reflected in the result bundle.
-* Files are served from the `server/public` folder using an express based server. The resulting `bundle.js`, the `index.html` and any third party libs are alocated here by the Grunt build system (you should not add any file here since the folder is clear every time the build process start).
+* Files are served from the `example/server/public` folder using an express based server. The resulting `bundle.js`, the `index.html` and any third party libs are alocated here by the Grunt build system (you should not add any file here since the folder is cleared every time the build process start).
+* Includes a comprehensive eslit rule set for ES5, ES2015, ReactJS and JSX.
 
 ![In browser debug with source-maps](example/assets/debug.png)
 
