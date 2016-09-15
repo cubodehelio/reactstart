@@ -1,5 +1,6 @@
 ## v0.1.1
 
+* Add `.babelrc` file to support simple transpilation of jsx.
 * Add `export.sh` script.
 * Move `server/**` to assets to `example/server/**`.
 * Move `example/index.html` to assets to `example/app/index.html`.

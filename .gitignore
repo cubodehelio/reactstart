@@ -5,3 +5,4 @@ typings
 server/public
 *.sublime-*
 bourbon
+tmp
