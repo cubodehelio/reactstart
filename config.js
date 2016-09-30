@@ -1,5 +1,5 @@
 
-const src = 'demos/hello_stateless/example';
+const src = 'demos/hello_class/example';
 const dist = '.dist';
 
 module.exports = {
