@@ -1,10 +1,15 @@
+const config = require('./config.js');
+
+/**
+ * Webpack's configuration file.
+ */
 module.exports = {
-  entry: './example/app/index.jsx',
+  entry: `./${config.app['index.jsx']}`,
   output: {
-    filename: './server/public/bundle.js'
+    filename: config.bundleName
   },
 
-  // Enable sourcemaps for debugging webpack's output.
+  // Enable source-maps for debugging webpack's output.
   devtool: 'source-map',
 
   resolve: {
@@ -14,7 +19,10 @@ module.exports = {
 
   module: {
     loaders: [
-      // All files with a '.jsx' extension will be handled by 'babel-loader'.
+
+      /**
+       * JSX files will be handled by 'babel-loader'.
+       */
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -23,28 +31,42 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
-      }
-    ],
+      },
 
-    preLoaders: [
-      // All output '.js' files will have any sourcemaps re-processed by
-      // 'source-map-loader'.
+      /**
+       * CSS files will be handled by 'css' & `style` loaders.
+       * NOTE: The resulting css will be injected in the webpack output bunlde
+       * javascript file. Then, it will be injected in your document via
+       * <style> tag.
+       */
       {
-        test: /\.js$/,
-        loader: 'source-map-loader'
+        test: /\.css$/,
+        loader: 'style!css?sourceMap'
+
+      },
+
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+      },
+
+      {
+        test: /\.sass$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
       }
     ]
   },
 
-  // When importing a module whose path matches one of the following, just
-  // assume that the corresponding global variable exists and use that instead.
-  // This is important because it allows us to avoid any third party
-  // dependencies to be bundled along side our source code. Also allows
-  // browsers to cache those third party libraries.
+  // In the example/ app all the needed third party libraries are loaded from
+  // public public CDNs and are inclueded in the index.html as you normaly
+  // would via <scrip> tag. This means that those libs creates his own global
+  // variables (namespace) in the document. So here we instruct webpack to just
+  // ignore the presence of this specific globals in our code.
+  // Among other things this allows us to avoid any third party dependencies to
+  // be bundled along side our source code.
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
-    'superagent': 'superagent',
-    'debug': 'debug'
+    'superagent': 'superagent'
   }
 };

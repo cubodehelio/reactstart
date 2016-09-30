@@ -1,42 +1,54 @@
-'use strict';
-const copyTasks = require('./grunt/copyTask');
-const cleanTasks = require('./grunt/cleanTask');
+const run = require('./grunt/runTask');
+const copy = require('./grunt/copyTask');
+const sass = require('./grunt/sassTask');
+const clean = require('./grunt/cleanTask');
+const concurrent = require('./grunt/concurrentTask');
+const watch = require('./grunt/watchTask');
 
-module.exports = function (grunt) {
+module.exports = (grunt) => {
 
-  grunt.registerTask('default', ['run:webpack', 'copy']);
-  grunt.registerTask('develop', ['clean:public', 'concurrent:develop']);
-  grunt.registerTask('webpack', ['run:webpack']);
+  grunt.registerTask('default', [
+    'clean:public',
+    'concurrent:copy',
+    'concurrent:watch',
+  ]);
+
+  grunt.registerTask('noserve', [
+    'clean:public',
+    'concurrent:copy',
+    'concurrent:watch-no-serve'
+  ]);
 
   grunt.initConfig({
-    clean: cleanTasks,
-    copy: copyTasks,
 
     /**
-     * configure `grunt-run` task
+     * Configure the clean task.
+     * See `grunt/cleanTask.js` file.
      */
-    run: {
-      'options': {
-        wait: true
-      },
-      'webpack': {
-        cmd: 'webpack'
-      },
-      'webpack-watch': {
-        cmd: 'webpack',
-        args: ['--watch', '--colors']
-      }
-    },
+    clean,
 
-    concurrent: {
-      develop: {
-        tasks: ['copy:vendor.scripts', 'copy:app.index', 'run:webpack-watch'],
-        options: {
-          logConcurrentOutput: true
-        }
-      }
-    }
+    /**
+     * Configure all the stuff that will be copied "as is" to the distribution
+     * folder.
+     */
+    copy,
 
+    /**
+     * Configure the node-sass task
+     */
+    sass,
+
+    /**
+     * Configure `grunt-run` tasks...
+     */
+    run,
+
+    /**
+     * Configure `grunt-concurrent` (tasks that can run asynchronously at the
+     * same time).
+     */
+    concurrent,
+    watch
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -44,4 +56,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-sync');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 };

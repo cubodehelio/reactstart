@@ -1,5 +1,6 @@
 
 'use strict';
+const config = require('../../../config.js');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
@@ -10,14 +11,14 @@ const app = express();
 const logger = Logger.logger();
 const COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.server.port || 3000);
 
 app.use((req, res, next) => {
   logger.log('request!!');
   next();
 });
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.resolve('../../../', config.dist)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

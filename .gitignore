@@ -4,3 +4,7 @@ node_modules
 typings
 server/public
 *.sublime-*
+bourbon
+tmp
+non-npm-vendors
+.dist
