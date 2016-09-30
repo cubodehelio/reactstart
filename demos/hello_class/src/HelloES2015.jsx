@@ -1,7 +1,5 @@
 /**
  * Hello React
- *
- * $ babel HelloES2015.jsx --out-file HelloES2015.js
  */
 
 class HelloES2015 extends React.Component {

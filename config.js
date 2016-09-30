@@ -1,5 +1,5 @@
 
-const src = 'demos/hello_class/example';
+const src = 'demos/lifecycle/example';
 const dist = '.dist';
 
 module.exports = {
