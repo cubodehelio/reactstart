@@ -33,14 +33,14 @@ other third party library.
 * Files are served from the `example/server/public` folder using an express based server. The resulting `bundle.js`, the `index.html` and any third party libs are alocated here by the Grunt build system (you should not add any file here since the folder is cleared every time the build process start).
 * Includes a comprehensive eslit rule set for ES5, ES2015, ReactJS and JSX.
 
-![In browser debug with source-maps](example/assets/debug.png)
+![In browser debug with source-maps](assets/debug.png)
 
 ## Recomended
 Install the React Developer Tools for [chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)! See [how it works](https://github.com/facebook/react-devtools).
 
-![react developer tools](example/assets/react-devtools.png)
+![react developer tools](assets/react-devtools.png)
 
 ## Third party libraries.
-In the example app public CDNs are used but you can load libraries from your own server (see: `example/index.html` and check the `server/public/vendor/js/` folder). The source paths of those libraries are configured in `grunt/sources.js` file. The Grunt based build system copy the files on that list to the server public folder (`server/public/vendor/js`).
+In the example app public CDNs are used but you can load libraries from your own server (see: `example/index.html` and check the `server/public/vendor/js/` folder). The source paths of those libraries are configured in `config.js` file. The Grunt based build system copy the files on that list to the server public folder (`server/public/vendor/js`).
 
 

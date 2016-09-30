@@ -1,12 +1,12 @@
-const sources = require('./grunt/sources.js');
+const config = require('./config.js');
 
 /**
  * Webpack's configuration file.
  */
 module.exports = {
-  entry: `./${sources.app['index.jsx']}`,
+  entry: `./${config.app['index.jsx']}`,
   output: {
-    filename: './example/server/public/bundle.js'
+    filename: config.bundleName
   },
 
   // Enable source-maps for debugging webpack's output.
@@ -19,7 +19,10 @@ module.exports = {
 
   module: {
     loaders: [
-      // All files with a '.jsx' extension will be handled by 'babel-loader'.
+
+      /**
+       * JSX files will be handled by 'babel-loader'.
+       */
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -28,15 +31,28 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
-      }
-    ],
+      },
 
-    preLoaders: [
-      // All output '.js' files will have any sourcemaps re-processed by
-      // 'source-map-loader'.
+      /**
+       * CSS files will be handled by 'css' & `style` loaders.
+       * NOTE: The resulting css will be injected in the webpack output bunlde
+       * javascript file. Then, it will be injected in your document via
+       * <style> tag.
+       */
       {
-        test: /\.js$/,
-        loader: 'source-map-loader'
+        test: /\.css$/,
+        loader: 'style!css?sourceMap'
+
+      },
+
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+      },
+
+      {
+        test: /\.sass$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
       }
     ]
   },

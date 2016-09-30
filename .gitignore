@@ -6,3 +6,5 @@ server/public
 *.sublime-*
 bourbon
 tmp
+non-npm-vendors
+.dist

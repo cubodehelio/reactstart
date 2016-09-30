@@ -1,3 +1,9 @@
+## v0.2.0
+
+* add more demos
+* add css support to webpack (`require('mysass.css');`)
+* add sass support to webpack (`require('mysass.sass|.scss');`)
+
 ## v0.1.1
 
 * Add `.babelrc` file to support simple transpilation of jsx.
